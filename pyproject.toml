@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "twinpast"
+version = "0.1.0"
+description = "Paired video question answering and evaluation tools for TwinPast"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "Apache-2.0"}
+classifiers = ["Programming Language :: Python :: 3", "License :: OSI Approved :: Apache Software License"]
+
+[project.scripts]
+twinpast = "twinpast.cli:main"
+
+[project.optional-dependencies]
+video = ["numpy>=1.23", "Pillow>=9.1", "decord==0.6.0"]
+http = ["requests>=2.32.4"]
+realtime = ["websocket-client>=1.8", "numpy>=1.23", "Pillow>=9.1", "decord==0.6.0"]
+
+[tool.setuptools]
+include-package-data = false
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = true
+exclude = ["*.upstream", "*.upstream.*"]
+
+[tool.setuptools.package-data]
+twinpast = ["catalog.json", "upstreams.json", "adapters/*/requirements.txt"]

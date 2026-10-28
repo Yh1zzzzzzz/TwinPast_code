@@ -1,0 +1,222 @@
+{
+  "online/dispider": {
+    "folder": "eval_dispider",
+    "module": "streaming_adapter",
+    "mode": "streaming",
+    "python_paths": [
+      "upstream"
+    ]
+  },
+  "online/moss": {
+    "folder": "eval_moss_vl",
+    "module": "streaming_gqa_adapter",
+    "mode": "streaming",
+    "python_paths": []
+  },
+  "online/videollm_mcq": {
+    "folder": "eval_videollm_online",
+    "module": "streaming_mcq_adapter",
+    "mode": "streaming",
+    "python_paths": [
+      "upstream"
+    ]
+  },
+  "online/flash": {
+    "folder": "eval_flash_vstream",
+    "module": "streaming_adapter",
+    "mode": "streaming",
+    "python_paths": []
+  },
+  "online/minicpm_mcq": {
+    "folder": "eval_minicpm_o45",
+    "module": "streaming_duplex_mcq_adapter",
+    "mode": "streaming",
+    "python_paths": []
+  },
+  "online/mage_codec_gate": {
+    "folder": "eval_mage_vl",
+    "module": "streaming_codec_gate_adapter",
+    "mode": "streaming",
+    "python_paths": []
+  },
+  "online/joyai": {
+    "folder": "eval_joyai_vl",
+    "module": "streaming_cached_adapter",
+    "mode": "streaming",
+    "python_paths": []
+  },
+  "online/streamforest": {
+    "folder": "eval_streamforest",
+    "module": "streaming_adapter",
+    "mode": "streaming",
+    "python_paths": [
+      "upstream"
+    ]
+  },
+  "online/rekv": {
+    "folder": "eval_rekv",
+    "module": "streaming_adapter",
+    "mode": "streaming",
+    "python_paths": [
+      "upstream"
+    ],
+    "environment": {
+      "REKV_SELECTED_VISION_STATE_ONLY": "1"
+    }
+  },
+  "online/onestreamer": {
+    "folder": "eval_onestreamer",
+    "module": "streaming_adapter",
+    "mode": "streaming",
+    "python_paths": [
+      "upstream/Eval/Proactive_Eval/OneStreamer/src",
+      "upstream/Eval/Proactive_Eval"
+    ]
+  },
+  "offline/dispider": {
+    "folder": "eval_dispider",
+    "module": "adapter",
+    "mode": "offline",
+    "python_paths": []
+  },
+  "offline/moss": {
+    "folder": "eval_moss_vl",
+    "module": "adapter",
+    "mode": "offline",
+    "python_paths": []
+  },
+  "offline/flash": {
+    "folder": "eval_flash_vstream",
+    "module": "adapter",
+    "mode": "offline",
+    "python_paths": []
+  },
+  "offline/minicpm": {
+    "folder": "eval_minicpm_o45",
+    "module": "adapter",
+    "mode": "offline",
+    "python_paths": []
+  },
+  "offline/joyai": {
+    "folder": "eval_joyai_vl",
+    "module": "adapter",
+    "mode": "offline",
+    "python_paths": []
+  },
+  "offline/mage_codec": {
+    "folder": "eval_mage_vl",
+    "module": "adapter",
+    "mode": "offline",
+    "python_paths": [],
+    "environment": {
+      "MAGE_BACKEND": "codec"
+    }
+  },
+  "offline/videollm_mcq": {
+    "folder": "eval_videollm_online",
+    "module": "streaming_mcq_adapter",
+    "mode": "offline",
+    "python_paths": [
+      "upstream"
+    ],
+    "method": "answer_offline"
+  },
+  "online/videollm_free": {
+    "folder": "eval_videollm_online",
+    "module": "streaming_adapter",
+    "mode": "streaming",
+    "python_paths": [
+      "upstream"
+    ]
+  },
+  "offline/qwen": {
+    "factory": "twinpast.adapters.qwen:Adapter",
+    "mode": "video",
+    "configuration": {
+      "input_mode": "uniform64"
+    },
+    "requires_torch": true
+  },
+  "recent/qwen4": {
+    "factory": "twinpast.adapters.qwen:Adapter",
+    "mode": "video",
+    "configuration": {
+      "input_mode": "recent4"
+    },
+    "requires_torch": true
+  },
+  "blind/qwen": {
+    "factory": "twinpast.adapters.qwen:Adapter",
+    "mode": "video",
+    "configuration": {
+      "input_mode": "query_only"
+    },
+    "requires_torch": true
+  },
+  "online/aura": {
+    "factory": "twinpast.adapters.eval_aura.adapter:Adapter",
+    "mode": "video",
+    "configuration": {
+      "input_mode": "streaming"
+    },
+    "requires_torch": true
+  },
+  "offline/aura_tail30": {
+    "factory": "twinpast.adapters.eval_aura.adapter:Adapter",
+    "mode": "video",
+    "configuration": {
+      "input_mode": "tail30"
+    },
+    "requires_torch": true
+  },
+  "api/chat_video": {
+    "factory": "twinpast.adapters.http_video:Adapter",
+    "mode": "video",
+    "configuration": {}
+  },
+  "api/responses_video": {
+    "factory": "twinpast.adapters.http_video:Adapter",
+    "mode": "video",
+    "configuration": {
+      "transport": "responses"
+    }
+  },
+  "api/google_files": {
+    "factory": "twinpast.adapters.google_video:Adapter",
+    "mode": "video",
+    "configuration": {}
+  },
+  "blind/http": {
+    "factory": "twinpast.adapters.http_video:Adapter",
+    "mode": "video",
+    "configuration": {
+      "input_mode": "query_only"
+    }
+  },
+  "recent/http1": {
+    "factory": "twinpast.adapters.http_video:Adapter",
+    "mode": "video",
+    "configuration": {
+      "input_mode": "latest"
+    }
+  },
+  "recent/http4": {
+    "factory": "twinpast.adapters.http_video:Adapter",
+    "mode": "video",
+    "configuration": {
+      "input_mode": "recent4"
+    }
+  },
+  "offline/http64": {
+    "factory": "twinpast.adapters.http_video:Adapter",
+    "mode": "video",
+    "configuration": {
+      "input_mode": "uniform64"
+    }
+  },
+  "online/realtime": {
+    "factory": "twinpast.adapters.realtime:Adapter",
+    "mode": "video",
+    "configuration": {}
+  }
+}

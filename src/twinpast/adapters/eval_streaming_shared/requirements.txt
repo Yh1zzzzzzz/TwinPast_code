@@ -1,0 +1,6 @@
+accelerate>=0.33
+numpy>=1.23
+Pillow>=9.1
+decord==0.6.0
+sentencepiece>=0.1.99
+safetensors>=0.4

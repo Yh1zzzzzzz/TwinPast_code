@@ -1,0 +1,16 @@
+include README.md LICENSE NOTICE THIRD_PARTY_NOTICES.md
+include .gitignore
+recursive-include src/twinpast/adapters requirements.txt
+recursive-include tests *.py
+include src/twinpast/catalog.json src/twinpast/upstreams.json
+include public-files.txt
+recursive-include tools *.py
+prune models
+prune runs
+prune outputs
+prune build
+prune dist
+prune src/twinpast/adapters/*/upstream
+global-exclude *.py[cod]
+global-exclude .env .env.* *.pem *.key *.p12 *.pfx
+global-exclude *.log *.jsonl *.sqlite* *.db *.npy *.npz *.pt *.pth *.ckpt *.safetensors
