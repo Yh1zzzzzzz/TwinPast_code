@@ -8,6 +8,7 @@ public-files.txt
 pyproject.toml
 src/twinpast/__init__.py
 src/twinpast/__main__.py
+src/twinpast/answers.py
 src/twinpast/adapters/eval_aura/adapter.py
 src/twinpast/adapters/eval_aura/backend.py
 src/twinpast/adapters/eval_aura/base.py
@@ -68,6 +69,7 @@ src/twinpast/upstreams.json
 src/twinpast/video.py
 tests/support.py
 tests/test_adapters.py
+tests/test_answers.py
 tests/test_core.py
 tests/test_distribution.py
 tests/test_security.py

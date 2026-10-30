@@ -31,6 +31,27 @@ twinpast run /path/to/TwinPast --condition online/flash \
 
 Place Flash-VStream weights under `/path/to/models/Flash-VStream-Qwen-7b`. See the [model catalog](src/twinpast/catalog.json) and [adapters](src/twinpast/adapters) for other models. API credentials use `TWINPAST_API_KEY`.
 
+## Answer extraction
+
+`twinpast run` defaults to `--readout explicit_option`. It accepts bare letters,
+punctuation and Markdown wrappers (`A.`, `(B)`, `**B**`), explicit answer statements
+(`The answer is B`), and a unique complete option text, ignoring case, surrounding
+punctuation and whitespace. A letter plus option text must agree. A marked final
+answer can follow discussion or an option list; a complete answer in a separate
+final paragraph is also supported. Conflicting final statements,
+alternatives, partial options and unrecognized prose remain unresolved. A rationale
+introduced by `because` or a separate `Explanation:` / `Reason:` line may follow
+a complete answer. Known adapter response/end-of-turn markers and a completed leading `<think>`
+block are removed; an unfinished thinking block is unresolved.
+
+The parser uses only the response and ordered options, never the reference answer.
+It does not infer semantic paraphrases or replace the paper's reviewed answer
+mappings. The run records the parser version and preserves each raw response.
+`--readout exact_letter` and `--readout first_standalone_letter` retain the old rules
+for historical replay; the latter can mistake prose for a choice. `twinpast score`
+continues to consume already-extracted uppercase letters; missing or invalid
+answers count as incorrect with fixed denominators.
+
 ## License
 
 Code: [Apache-2.0](LICENSE). See [third-party notices](THIRD_PARTY_NOTICES.md); datasets and model weights retain their own terms.

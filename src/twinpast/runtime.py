@@ -4,12 +4,12 @@ from contextlib import suppress
 import json
 import os
 from pathlib import Path
-import re
 import sys
 import time
 import zlib
 
 from .data import DataError, load_dataset, new_output, require
+from .answers import PARSER_VERSION, READOUTS, parse_answer
 from .inputs import adapter_input, build_jobs, prompt, write_jobs
 from .security import redact as _redact, validate_configuration
 
@@ -18,18 +18,6 @@ PACKAGE = Path(__file__).resolve().parent
 
 def catalog():
     return json.loads((PACKAGE / "catalog.json").read_text())
-
-
-def parse_answer(text, options, readout="exact_letter"):
-    if not isinstance(text, str):
-        return None
-    labels = "".join(chr(65 + i) for i in range(len(options)))
-    if readout == "exact_letter":
-        value = text.strip()
-        return value if len(value) == 1 and value in labels else None
-    require(readout == "first_standalone_letter", "Unknown readout")
-    match = re.search(r"(?<![A-Z0-9_])([" + labels + r"])(?![A-Z0-9_])", text.strip().upper())
-    return match[1] if match else None
 
 
 def _json(path, value):
@@ -52,10 +40,10 @@ def load_adapter(spec, configuration, custom=None):
 
 
 def run(dataset_root, condition, output_dir, model_root=None, configuration=None,
-        readout="exact_letter", limit_pairs=None, prepare_only=False, seed=0, custom_adapter=None):
+        readout="explicit_option", limit_pairs=None, prepare_only=False, seed=0, custom_adapter=None):
     conditions = catalog()
     require(condition in conditions, "Unknown condition")
-    require(readout in ("exact_letter", "first_standalone_letter"), "Unknown readout")
+    require(readout in READOUTS, "Unknown readout")
     dataset = load_dataset(dataset_root)
     output = new_output(dataset.root, output_dir)
     require(output != PACKAGE and PACKAGE not in output.parents, "Output cannot be inside the installed package")
@@ -65,6 +53,7 @@ def run(dataset_root, condition, output_dir, model_root=None, configuration=None
     validate_configuration(configuration)
     output.mkdir(parents=True, exist_ok=False)
     state = {"condition": condition, "readout": readout, "seed": seed,
+             "parser_version": PARSER_VERSION if readout == "explicit_option" else "legacy_" + readout,
              "job_count": len(jobs), "dataset_pairs": len(dataset.pairs),
              "state": "prepared", "full_collection": len(jobs) == 2 * len(dataset.pairs)}
     _json(output / "run.json", state)

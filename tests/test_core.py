@@ -132,9 +132,10 @@ class CoreTests(unittest.TestCase):
             new_output(self.root, alias / "output.json")
 
     def test_readout_is_explicit_and_independent_of_gold(self):
-        self.assertIsNone(parse_answer("The answer is A", ["x", "y"]))
+        self.assertEqual(parse_answer("The answer is A", ["x", "y"]), "A")
+        self.assertIsNone(parse_answer("The answer is A", ["x", "y"], "exact_letter"))
         self.assertEqual(parse_answer("The answer is A", ["x", "y"], "first_standalone_letter"), "A")
-        self.assertIsNone(parse_answer("a", ["x", "y"]))
+        self.assertIsNone(parse_answer("a", ["x", "y"], "exact_letter"))
 
 
 class RunnerTests(unittest.TestCase):
@@ -157,10 +158,12 @@ class RunnerTests(unittest.TestCase):
             def answer_stream(self, job, prompt, emit):
                 observed.append(job)
                 emit({"type": "observed"})
-                return {"response": "A" if job["video"].endswith("A.mp4") else "B"}
+                return {"response": "A." if job["video"].endswith("A.mp4") else "B<|im_end|>"}
         with patch("twinpast.runtime.load_adapter", return_value=Fake()):
             state = run(self.root, "api/chat_video", self.base / "run", limit_pairs=1)
         self.assertEqual(state["state"], "complete")
+        self.assertEqual(state["readout"], "explicit_option")
+        self.assertEqual(state["parser_version"], "explicit_option_v1")
         self.assertEqual(len(observed), 2)
         self.assertNotIn("answer", observed[0])
         result = score_predictions(load_dataset(self.root), self.base / "run/predictions.jsonl")

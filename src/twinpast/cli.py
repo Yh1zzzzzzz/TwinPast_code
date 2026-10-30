@@ -9,6 +9,7 @@ from .data import DataError, load_dataset, new_output
 from .inputs import build_jobs, write_jobs
 from .metrics import score_predictions
 from .runtime import catalog, run
+from .answers import READOUTS
 
 
 def main(argv=None):
@@ -30,7 +31,8 @@ def main(argv=None):
     evaluate.add_argument("--output-dir", type=Path, required=True)
     evaluate.add_argument("--model-root", type=Path)
     evaluate.add_argument("--config", type=Path, help="model/API settings; credentials are read from the environment")
-    evaluate.add_argument("--readout", choices=["exact_letter", "first_standalone_letter"], default="exact_letter")
+    evaluate.add_argument("--readout", choices=READOUTS, default="explicit_option",
+                          help="answer extraction (default: explicit_option); other modes replay legacy rules")
     evaluate.add_argument("--limit-pairs", type=int)
     evaluate.add_argument("--prepare-only", action="store_true")
     evaluate.add_argument("--seed", type=int, default=0)
