@@ -59,4 +59,13 @@ Code: [Apache-2.0](LICENSE). See [third-party notices](THIRD_PARTY_NOTICES.md); 
 ## Citation
 
 ```bibtex
+@misc{yang2026twinpastbenchmarkinghistoricalevidence,
+  title={TwinPast: Benchmarking Historical Evidence Use in Streaming Video Understanding with Evidence Contrastive Video Pairs},
+  author={Haotian Yang and Yong Chen and Cheng Peng and Haobo Wang and Zhongle Xie and Xuanru Li and Gang Chen},
+  year={2026},
+  eprint={2610.41983},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2610.41983},
+}
 ```
